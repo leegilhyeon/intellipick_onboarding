@@ -1,0 +1,12 @@
+{
+  "name": "intellipick_onboarding",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/leegilhyeon/intellipick_onboarding.git",
+  "author": "gil-hyeon <lgh5498@naver.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
