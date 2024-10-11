@@ -9,7 +9,7 @@ const swagger = {
       version: "1.0.0",
       description: "회원가입, 로그인, 토큰 발급 API",
     },
-    servers: [{ url: "http://localhost:3000/api" }],
+    servers: [{ url: "http://localhost:3000" }],
   },
   apis: ["./routers/*.js"],
 };

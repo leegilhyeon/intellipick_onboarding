@@ -7,9 +7,9 @@ import { swaggerUi, spec } from "./swagger.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use("/api", [UserRouter]);
 app.use(
-  "/api",
-  [UserRouter],
+  "/api/docs",
   swaggerUi.serve,
   swaggerUi.setup(spec, { explorer: true })
 );
