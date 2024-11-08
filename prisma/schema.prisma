@@ -16,13 +16,23 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement()) 
   email     String   @unique
+  username  String   @unique
   nickname  String   
   password  String   
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt
 
   refreshTokens RefreshToken[]
+  authorities Authority[]
  }
+
+model Authority {
+  id            Int     @id @default(autoincrement())
+  authorityName String  @default("ROLE_USER")
+  userId        Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 model RefreshToken {
   id           Int      @id@default(autoincrement())

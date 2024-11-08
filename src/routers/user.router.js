@@ -24,6 +24,9 @@ const prisma = new PrismaClient();
  *               email:
  *                 type: string
  *                 description: email
+ *               username:
+ *                 type: string
+ *                 description: username
  *               nickname:
  *                 type: string
  *                 description: nickname
@@ -43,7 +46,7 @@ const prisma = new PrismaClient();
 //회원가입
 router.post("/sign-up", async (req, res, next) => {
   try {
-    const { email, nickname, password, passwordConfirm } = req.body;
+    const { email, username, nickname, password, passwordConfirm } = req.body;
 
     const userCheck = await prisma.user.findUnique({ where: { email } });
     if (userCheck) {
@@ -55,11 +58,26 @@ router.post("/sign-up", async (req, res, next) => {
     // const hashedRound = process.env.HASH_SALT_ROUNDS;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
-      data: { email, password: hashedPassword, nickname },
+      data: {
+        email,
+        username,
+        password: hashedPassword,
+        nickname,
+        authorities: {
+          create: [{}],
+        },
+      },
+      include: {
+        authorities: true,
+      },
     });
-    return res
-      .status(201)
-      .json({ email, nickname, message: "회원가입이 완료되었습니다." });
+    return res.status(201).json({
+      username: user.username,
+      nickname: user.nickname,
+      authorities: user.authorities.map((auth) => ({
+        authorityName: auth.authorityName,
+      })),
+    });
   } catch (error) {
     next(error);
   }
