@@ -11,7 +11,7 @@ const swagger = {
     },
     servers: [{ url: "http://localhost:3000" }],
   },
-  apis: ["./routers/*.js"],
+  apis: ["./src/routers/*.js"],
 };
 
 const spec = swaggerJSDoc(swagger);
