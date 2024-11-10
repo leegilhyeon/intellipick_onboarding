@@ -63,7 +63,6 @@
 }
     }
 
-    ```
 
   - [ ] Response Message
 
@@ -79,7 +78,6 @@
 	]
 }
 
-    ```
 
 - [ ] 로그인 - /login
 
@@ -93,8 +91,6 @@
 }
 
 
-    ```
-
   - [ ] Response Message
 
     ```json
@@ -104,7 +100,6 @@
     "refreshToken": "eyJh~"
     }
 
-    ```
 
 **배포해보기**
 
