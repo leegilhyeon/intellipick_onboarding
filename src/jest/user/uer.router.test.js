@@ -38,8 +38,8 @@ describe("회원가입 및 로그인 API TEST", () => {
     });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("accessToken");
-    expect(response.body).toHaveProperty("refreshToken");
+    expect(response.body.token).toHaveProperty("accessToken");
+    expect(response.body.token).toHaveProperty("refreshToken");
   });
 
   it("로그인 실패", async () => {
