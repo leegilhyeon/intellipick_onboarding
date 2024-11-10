@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import "dotenv/config";
 import bcrypt from "bcrypt";
-import { verifyRefreshToken } from "../jwt.middleware.js/refresh-token.middleware.js";
+import { verifyRefreshToken } from "../middlewares/jwt/refresh-token.middleware.js";
 
 const router = express.Router();
 const prisma = new PrismaClient();
