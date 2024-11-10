@@ -17,17 +17,15 @@ beforeAll(async () => {
 
 describe("회원가입 및 로그인 API TEST", () => {
   const mockUser = {
-    email: "test@test.com",
-    username: "test",
-    nickname: "testUser",
-    password: "test1234",
-    passwordConfirm: "test1234",
+    username: "JIN HO",
+    nickname: "Mentos",
+    password: "12341234",
+    passwordConfirm: "12341234",
   };
   it("회원가입", async () => {
     const response = await request(app).post("/api/sign-up").send(mockUser);
 
     expect(response.status).toBe(201);
-    expect(response.body.email).toBe(mockUser.email);
     expect(response.body.username).toBe(mockUser.username);
     expect(response.body.nickname).toBe(mockUser.nickname);
     expect(response.body).toHaveProperty("authorities");
@@ -35,7 +33,7 @@ describe("회원가입 및 로그인 API TEST", () => {
 
   it("로그인", async () => {
     const response = await request(app).post("/api/sign-in").send({
-      email: mockUser.email,
+      username: mockUser.username,
       password: mockUser.password,
     });
 
@@ -46,7 +44,7 @@ describe("회원가입 및 로그인 API TEST", () => {
 
   it("로그인 실패", async () => {
     const response = await request(app).post("/api/sign-in").send({
-      email: mockUser.email,
+      username: mockUser.username,
       password: "fail",
     });
 

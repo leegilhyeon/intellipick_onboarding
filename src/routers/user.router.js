@@ -21,9 +21,6 @@ const prisma = new PrismaClient();
  *           schema:
  *             type: object
  *             properties:
- *               email:
- *                 type: string
- *                 description: email
  *               username:
  *                 type: string
  *                 description: username
@@ -46,11 +43,11 @@ const prisma = new PrismaClient();
 //회원가입
 router.post("/sign-up", async (req, res, next) => {
   try {
-    const { email, username, nickname, password, passwordConfirm } = req.body;
+    const { username, nickname, password, passwordConfirm } = req.body;
 
-    const userCheck = await prisma.user.findUnique({ where: { email } });
+    const userCheck = await prisma.user.findUnique({ where: { username } });
     if (userCheck) {
-      return res.status(409).json({ message: "이미 존재하는 이메일입니다." });
+      return res.status(409).json({ message: "이미 존재하는 이름입니다." });
     }
     if (password !== passwordConfirm) {
       return res.status(400).json({ message: "비밀번호를 확인해주세요." });
@@ -59,7 +56,6 @@ router.post("/sign-up", async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: {
-        email,
         username,
         password: hashedPassword,
         nickname,
@@ -95,9 +91,9 @@ router.post("/sign-up", async (req, res, next) => {
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               username:
  *                 type: string
- *                 description: email
+ *                 description: username
  *               password:
  *                 type: string
  *                 description: password
@@ -110,16 +106,16 @@ router.post("/sign-up", async (req, res, next) => {
 
 //로그인
 router.post("/sign-in", async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  if (!email || !password) {
+  if (!username || !password) {
     return res
       .status(400)
-      .json({ message: "이메일과 비밀번호 모두 입력해주세요." });
+      .json({ message: "이름과 비밀번호 모두 입력해주세요." });
   }
 
   const userCheck = await prisma.user.findUnique({
-    where: { email },
+    where: { username },
   });
   if (!userCheck) {
     return res.status(401).json({ message: "존재하지 않는 사용자입니다." });
